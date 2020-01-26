@@ -12,6 +12,13 @@ namespace DataAccess.Repositories.Contracts
         Task DeleteAsync(int id);
         Task DeleteAsync(TEntity entityToDelete);
 
+        /// <summary>
+        /// Get entity [filtering, order, including]
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="orderBy"></param>
+        /// <param name="includeProperties"></param>
+        /// <returns></returns>
         IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "");

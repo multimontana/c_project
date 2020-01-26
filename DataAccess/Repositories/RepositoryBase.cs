@@ -14,10 +14,10 @@ namespace DataAccess.Repositories
 
         #region Initialization
 
-        protected RepositoryBase(AppDbContext appDbContext)
+        protected RepositoryBase(TmContext tmContext)
         {
-            _dbContext = appDbContext;
-            _dbSet = appDbContext.Set<TEntity>();
+            _dbContext = tmContext;
+            _dbSet = tmContext.Set<TEntity>();
         }
 
         #endregion
@@ -54,38 +54,36 @@ namespace DataAccess.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        /// <summary>
-        /// Filter, Order, Include
-        /// </summary>
-        /// <param name="filter"></param>
-        /// <param name="orderBy"></param>
-        /// <param name="includeProperties"></param>
-        /// <returns></returns>
         public IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
             string includeProperties)
         {
             IQueryable<TEntity> query = _dbSet;
-
-            if (filter != null)
+            try
             {
-                query = query.Where(filter);
+                if (filter != null)
+                {
+                    query = query.Where(filter);
+                }
+
+                foreach (var includeProperty in includeProperties.Split
+                    (new[] {','}, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                }
+
+                if (orderBy != null)
+                {
+                    return orderBy(query);
+                }
+                else
+                {
+                    return query;
+                }
             }
-
-            Include(includeProperties, ref query);
-
-            foreach (var includeProperty in includeProperties.Split
-                (new[] {','}, StringSplitOptions.RemoveEmptyEntries))
+            catch (Exception e)
             {
-                query = query.Include(includeProperty);
-            }
-
-            if (orderBy != null)
-            {
-                return orderBy(query);
-            }
-            else
-            {
+                Console.WriteLine(e);
                 return query;
             }
         }

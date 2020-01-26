@@ -2,7 +2,7 @@
 
 namespace DataAccess.Repositories.Contracts
 {
-    public interface IEmployeeRepository : IRepositoryBase<Employee>
+    public interface IUserRepository : IRepositoryBase<User>
     {
     }
 }

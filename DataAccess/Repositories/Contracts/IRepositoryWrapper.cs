@@ -2,7 +2,6 @@
 {
     public interface IRepositoryWrapper
     {
-        IEmployeeRepository Employee { get; }
-        IDepartmentRepository Department { get; }
+        IUserRepository User { get; }
     }
 }

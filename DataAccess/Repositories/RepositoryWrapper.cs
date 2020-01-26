@@ -4,15 +4,16 @@ namespace DataAccess.Repositories
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        private readonly AppDbContext _context;
-        private IEmployeeRepository _employee;
-        private IDepartmentRepository _department;
+        private readonly TmContext _context;
 
-        public RepositoryWrapper(AppDbContext appDbContext)
+        private IUserRepository _user;
+
+
+        public RepositoryWrapper(TmContext tmContext)
         {
-            _context = appDbContext;
+            _context = tmContext;
         }
-        public IEmployeeRepository Employee => _employee ??= new EmployeeRepository(_context);
-        public IDepartmentRepository Department => _department ??= new DepartmentRepository(_context);
+
+        public IUserRepository User => _user ??= new UserRepository(_context);
     }
 }
