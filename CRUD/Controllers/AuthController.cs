@@ -17,7 +17,7 @@ namespace CRUD.Controllers
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly ILogger<AuthController> _logger;
 
-        public AuthController(IAuthenticateService authService, 
+        public AuthController(IAuthenticateService authService,
             IRepositoryWrapper repositoryWrapper,
             ILogger<AuthController> logger)
         {
@@ -28,6 +28,7 @@ namespace CRUD.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        [Route(template: "Login")]
         public IActionResult Login([FromBody] AuthenticateModel model)
         {
             if (ModelState.IsValid)
@@ -35,29 +36,30 @@ namespace CRUD.Controllers
                 try
                 {
                     var user = _repositoryWrapper.User
-                        .Get().FirstOrDefault(p => p.Name == model.Username);
+                        .Get().FirstOrDefault(predicate: p => p.Name == model.Login);
 
-                    //if (user != null && CalculatePasswordService.CalculatePassword(model.Password) == user.SdwebPassword)
-                    if (user != null)
+                    if (user != null && CalculatePasswordService.CalculatePassword(model.Password) == user.SdwebPassword)
                     {
-                        if (_authService.IsAuthenticated(model, out var token))
+                        if (_authService.IsAuthenticated(requestModel: model, token: out var token))
                         {
-                            return Ok(new
+                            return Ok(value: new
                             {
-                                token = token
+                                user.Name,
+                                user.Workspace,
+                                token
                             });
                         }
                     }
 
-                    return Unauthorized(model.Username);
+                    return Unauthorized(value: model.Login);
                 }
                 catch (Exception e)
                 {
-                    _logger.LogError(e, e.Message);
+                    _logger.LogError(exception: e, message: e.Message);
                 }
             }
 
-            return BadRequest(ModelState);
+            return BadRequest(modelState: ModelState);
         }
     }
 }

@@ -10,21 +10,21 @@ namespace CRUD.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeeController : ControllerBase
+    public class RequestController : ControllerBase
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
-        private readonly ILogger<EmployeeController> _logger;
+        private readonly ILogger<RequestController> _logger;
 
-        public EmployeeController(IRepositoryWrapper repositoryWrapper, ILogger<EmployeeController> logger)
+        public RequestController(IRepositoryWrapper repositoryWrapper, ILogger<RequestController> logger)
         {
             _repositoryWrapper = repositoryWrapper;
             _logger = logger;
         }
 
-        // GET api/users
+        // GET api/requests
         [HttpGet]
         [Authorize]
-        public ActionResult<IQueryable<User>> Get()
+        public IQueryable<User> Get()
         {
             IQueryable<User> user = null;
             try
@@ -36,7 +36,7 @@ namespace CRUD.Controllers
                 _logger.LogError(e, e.Message);
             }
 
-            return null;
+            return user;
         }
     }
 }

@@ -27,17 +27,17 @@ namespace DataAccess.DTOs
         public string? LoginName { get; set; }
         public string ExternalId { get; set; }
         public int? WorkspaceId { get; set; }
-        public bool? Admin { get; set; }
-        public bool? SupportOperator { get; set; }
-        public bool? NetworkAdmin { get; set; }
-        public bool? SupportEngineer { get; set; }
-        public bool? SupportAdmin { get; set; }
-        public bool? Removed { get; set; }
+        public bool Admin { get; set; }
+        public bool SupportOperator { get; set; }
+        public bool NetworkAdmin { get; set; }
+        public bool SupportEngineer { get; set; }
+        public bool SupportAdmin { get; set; }
+        public bool Removed { get; set; }
         public string? Sid { get; set; }
         public Guid? ImobjId { get; set; }
         public byte[] RowVersion { get; set; }
         public bool SdwebAccessIsGranted { get; set; }
-        public byte[] SdwebPassword { get; set; }
+        public byte[]? SdwebPassword { get; set; }
         public Guid? PeripheralDatabaseId { get; set; }
         public int? ComplementaryId { get; set; }
         public Guid? ComplementaryGuidId { get; set; }

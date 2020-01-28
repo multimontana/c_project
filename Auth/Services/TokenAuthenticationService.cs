@@ -26,11 +26,11 @@ namespace Auth.Services
             token = default;
 
             // Check user name and password
-            if (_userManagementService.IsValidUser(requestModel.Username, requestModel.Password))
+            if (_userManagementService.IsValidUser(requestModel.Login, requestModel.Password))
             {
                 var claim = new[]
                 {
-                    new Claim(ClaimTypes.Name, requestModel.Username),
+                    new Claim(ClaimTypes.Name, requestModel.Login),
                     new Claim(JwtRegisteredClaimNames.Sub, requestModel.HostName ?? "hostname"),
                     new Claim(JwtRegisteredClaimNames.AuthTime, DateTime.Now.ToString(CultureInfo.InvariantCulture))
                 };

@@ -5,7 +5,9 @@ using CRUD.Configuration;
 using DataAccess;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -59,6 +61,9 @@ namespace CRUD
 
             #endregion
 
+            // Windows auth
+            // services.AddAuthentication(IISDefaults.AuthenticationScheme);
+
             // Add Services
             services.ConfigureRepositoryWrapper();
             services.ConfigureAuthUsers();
@@ -92,7 +97,7 @@ namespace CRUD
             }
 
             // if the application has SSL support Redirect https
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             // UseRouting adds route matching to the middleware pipeline
             app.UseRouting();
@@ -101,6 +106,14 @@ namespace CRUD
             app.UseAuthorization();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            app.UseCookiePolicy(new CookiePolicyOptions
+            {
+                MinimumSameSitePolicy = SameSiteMode.Strict,
+                HttpOnly = HttpOnlyPolicy.Always,
+                Secure = CookieSecurePolicy.Always
+            });
+
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }

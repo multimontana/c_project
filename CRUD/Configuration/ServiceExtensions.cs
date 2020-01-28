@@ -13,7 +13,8 @@ namespace CRUD.Configuration
         public static void ConfigureRepositoryWrapper(this IServiceCollection services)
         {
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-        } 
+        }
+
         public static void ConfigureAuthUsers(this IServiceCollection services)
         {
             // configure DI for application services

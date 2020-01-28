@@ -24,6 +24,5 @@ namespace Auth.Services
 
             return retVal;
         }
-
     }
 }

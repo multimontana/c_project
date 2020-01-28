@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataAccess.Log;
+using Microsoft.EntityFrameworkCore;
 using DataAccess.Mappings;
 using Microsoft.Extensions.Logging;
 
@@ -6,17 +7,23 @@ namespace DataAccess
 {
     public class TmContext : DbContext
     {
-        private readonly ILoggerFactory _loggerFactory;
-
-        public TmContext(DbContextOptions options, ILoggerFactory loggerFactory) : base(options)
+        public TmContext(DbContextOptions options) : base(options)
         {
-            _loggerFactory = loggerFactory;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseLoggerFactory(_loggerFactory);
+            optionsBuilder.UseLoggerFactory(MyLoggerFactory);
         }
+
+        /// <summary>
+        /// Set log factory
+        /// </summary>
+        private static readonly ILoggerFactory MyLoggerFactory = LoggerFactory.Create(builder =>
+        {
+            // log provider
+            builder.AddProvider(new LoggerProvider());
+        });
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
