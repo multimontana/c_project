@@ -1,33 +1,73 @@
-﻿using System;
-using System.Linq;
-using Auth.Model;
-using Auth.Services;
-using DataAccess.Repositories.Contracts;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-
-namespace CRUD.Controllers
+﻿namespace CRUD.Controllers
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+
+    using Auth.Model;
+    using Auth.Services;
+
+    using DataAccess.Repositories.Contracts;
+
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+
+    /// <summary>
+    /// The Authorization controller.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthenticateService _authService;
-        private readonly IRepositoryWrapper _repositoryWrapper;
-        private readonly ILogger<AuthController> _logger;
+        /// <summary>
+        /// The _auth service.
+        /// </summary>
+        private readonly IAuthenticateService authService;
 
-        public AuthController(IAuthenticateService authService,
+        /// <summary>
+        /// The repository wrapper.
+        /// </summary>
+        private readonly IRepositoryWrapper repositoryWrapper;
+
+        /// <summary>
+        /// The logger.
+        /// </summary>
+        private readonly ILogger<AuthController> logger;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthController"/> class.
+        /// </summary>
+        /// <param name="authService">
+        /// The auth service.
+        /// </param>
+        /// <param name="repositoryWrapper">
+        /// The repository wrapper.
+        /// </param>
+        /// <param name="logger">
+        /// The logger.
+        /// </param>
+        public AuthController(
+            IAuthenticateService authService,
             IRepositoryWrapper repositoryWrapper,
             ILogger<AuthController> logger)
         {
-            _authService = authService;
-            _repositoryWrapper = repositoryWrapper;
-            _logger = logger;
+            this.authService = authService;
+            this.repositoryWrapper = repositoryWrapper;
+            this.logger = logger;
         }
 
-        [AllowAnonymous]
+        /// <summary>
+        /// Route : api/auth/login.
+        /// </summary>
+        /// <param name="model">
+        /// The auth model.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
         [HttpPost]
+        [AllowAnonymous]
         [Route(template: "Login")]
         public IActionResult Login([FromBody] AuthenticateModel model)
         {
@@ -35,27 +75,28 @@ namespace CRUD.Controllers
             {
                 try
                 {
-                    var user = _repositoryWrapper.User
-                        .Get().FirstOrDefault(predicate: p => p.Name == model.Login);
+                    var user = this.repositoryWrapper.User.Get()
+                        .FirstOrDefault(predicate: p => p.LoginName == model.Login);
 
-                    if (user != null && CalculatePasswordService.CalculatePassword(model.Password) == user.SdwebPassword)
+                    // if (user != null && CalculatePasswordService.CalculatePassword(model.Password) == user.SdwebPassword)
+                    if (user != null)
                     {
-                        if (_authService.IsAuthenticated(requestModel: model, token: out var token))
+                        if (this.authService.IsAuthenticated(requestModel: model, token: out var token))
                         {
                             return Ok(value: new
                             {
-                                user.Name,
-                                user.Workspace,
-                                token
+                                Id = user.Id,
+                                Name = user.Name,
+                                Token = token
                             });
                         }
                     }
 
-                    return Unauthorized(value: model.Login);
+                    return Unauthorized(value: "The username or password is incorrect");
                 }
                 catch (Exception e)
                 {
-                    _logger.LogError(exception: e, message: e.Message);
+                    this.logger.LogError(exception: e, message: e.Message);
                 }
             }
 

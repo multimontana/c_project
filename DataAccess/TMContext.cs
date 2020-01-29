@@ -1,12 +1,21 @@
-﻿using DataAccess.Log;
-using Microsoft.EntityFrameworkCore;
-using DataAccess.Mappings;
-using Microsoft.Extensions.Logging;
-
-namespace DataAccess
+﻿namespace DataAccess
 {
+    using Log;
+    using Mappings;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
+
+    /// <summary>
+    /// The context.
+    /// </summary>
     public class TmContext : DbContext
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TmContext"/> class.
+        /// </summary>
+        /// <param name="options">
+        /// The options.
+        /// </param>
         public TmContext(DbContextOptions options) : base(options)
         {
         }
@@ -14,6 +23,11 @@ namespace DataAccess
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLoggerFactory(MyLoggerFactory);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
         }
 
         /// <summary>
@@ -24,17 +38,5 @@ namespace DataAccess
             // log provider
             builder.AddProvider(new LoggerProvider());
         });
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfiguration(new FloorEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new CalendarWorkScheduleEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new TimeZoneEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new BuildingEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new PositionEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new WorkplaceEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new RoomEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
-        }
     }
 }

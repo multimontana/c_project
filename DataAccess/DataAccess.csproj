@@ -11,6 +11,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="DTOs\Building.cs" />
+    <Compile Remove="DTOs\CalendarWorkSchedule.cs" />
+    <Compile Remove="DTOs\Floor.cs" />
+    <Compile Remove="DTOs\Position.cs" />
+    <Compile Remove="DTOs\Room.cs" />
+    <Compile Remove="DTOs\TimeZone.cs" />
+    <Compile Remove="DTOs\Workplace.cs" />
+    <Compile Remove="Mappings\BuildingEntityConfiguration.cs" />
+    <Compile Remove="Mappings\CalendarWorkScheduleEntityConfiguration.cs" />
+    <Compile Remove="Mappings\FloorEntityConfiguration.cs" />
+    <Compile Remove="Mappings\PositionEntityConfiguration.cs" />
+    <Compile Remove="Mappings\RoomEntityConfiguration.cs" />
+    <Compile Remove="Mappings\TimeZoneEntityConfiguration.cs" />
+    <Compile Remove="Mappings\WorkplaceEntityConfiguration.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">

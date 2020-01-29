@@ -1,20 +1,34 @@
-﻿using Auth.Services;
-using Microsoft.Extensions.DependencyInjection;
-using DataAccess.Repositories;
-using DataAccess.Repositories.Contracts;
-
-namespace CRUD.Configuration
+﻿namespace CRUD.Configuration
 {
+    using Auth.Services;
+
+    using DataAccess.Repositories;
+    using DataAccess.Repositories.Contracts;
+
+    using Microsoft.Extensions.DependencyInjection;
+
     /// <summary>
-    /// Registration Containers
+    /// The service collection extensions.
     /// </summary>
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// The configure repository wrapper.
+        /// </summary>
+        /// <param name="services">
+        /// The services.
+        /// </param>
         public static void ConfigureRepositoryWrapper(this IServiceCollection services)
         {
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
 
+        /// <summary>
+        /// The authorize configure.
+        /// </summary>
+        /// <param name="services">
+        /// The services.
+        /// </param>
         public static void ConfigureAuthUsers(this IServiceCollection services)
         {
             // configure DI for application services

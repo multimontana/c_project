@@ -1,7 +1,7 @@
-﻿using DataAccess.Repositories.Contracts;
-
-namespace DataAccess.Repositories
+﻿namespace DataAccess.Repositories
 {
+    using DataAccess.Repositories.Contracts;
+
     public class RepositoryWrapper : IRepositoryWrapper
     {
         private readonly TmContext _context;
@@ -14,6 +14,6 @@ namespace DataAccess.Repositories
             _context = tmContext;
         }
 
-        public IUserRepository User => _user ??= new UserRepository(_context);
+        public IUserRepository User => _user ?? new UserRepository(_context);
     }
 }

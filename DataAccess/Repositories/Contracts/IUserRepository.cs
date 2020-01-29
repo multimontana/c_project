@@ -1,7 +1,7 @@
-﻿using DataAccess.DTOs;
-
-namespace DataAccess.Repositories.Contracts
+﻿namespace DataAccess.Repositories.Contracts
 {
+    using DataAccess.DTOs;
+
     public interface IUserRepository : IRepositoryBase<User>
     {
     }

@@ -1,42 +1,106 @@
-﻿using System;
-using System.Linq;
-using DataAccess.DTOs;
-using DataAccess.Repositories.Contracts;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-
-namespace CRUD.Controllers
+﻿namespace CRUD.Controllers
 {
+    using System;
+    using System.Linq;
+    using DataAccess.Repositories.Contracts;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+
+    /// <summary>
+    /// The request controller.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class RequestController : ControllerBase
     {
-        private readonly IRepositoryWrapper _repositoryWrapper;
-        private readonly ILogger<RequestController> _logger;
+        /// <summary>
+        /// The repository wrapper.
+        /// </summary>
+        private readonly IRepositoryWrapper repositoryWrapper;
 
+        /// <summary>
+        /// The logger.
+        /// </summary>
+        private readonly ILogger<RequestController> logger;
+
+        #region Ctor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RequestController"/> class.
+        /// </summary>
+        /// <param name="repositoryWrapper">
+        /// The repository wrapper.
+        /// </param>
+        /// <param name="logger">
+        /// The logger.
+        /// </param>
         public RequestController(IRepositoryWrapper repositoryWrapper, ILogger<RequestController> logger)
         {
-            _repositoryWrapper = repositoryWrapper;
-            _logger = logger;
+            this.repositoryWrapper = repositoryWrapper;
+            this.logger = logger;
         }
 
-        // GET api/requests
+        #endregion
+
+        /// <summary>
+        /// The Get api/requests.
+        /// </summary>
+        /// <param name="filter">
+        /// The filter.
+        /// </param>
+        /// <param name="search">
+        /// The search.
+        /// </param>
+        /// <param name="page">
+        /// The page.
+        /// </param>
+        /// params filter, search, page
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
         [HttpGet]
         [Authorize]
-        public IQueryable<User> Get()
+        public IActionResult Get([FromQuery] string filter, string search, int page = 20)
         {
-            IQueryable<User> user = null;
             try
             {
-                user = _repositoryWrapper.User.Get();
+                // get via repository
+                var query = this.repositoryWrapper.User.Get(
+                    orderBy: userOrder => userOrder.OrderByDescending(p => p.Id));
+                if (query.Any())
+                {
+                    if (!string.IsNullOrEmpty(search))
+                    {
+                        query = query.Where(o => o.Name != null && o.Name.ToLower().Contains(search.Trim().ToLower()))
+                            .Take(page);
+                    }
+
+                    switch (filter)
+                    {
+                        case "AllBid":
+                            break;
+
+                        case "Unassigned":
+
+                            query = query.Take(page);
+                            break;
+
+                        case "MineAtwork":
+
+                            query = query.Take(page);
+                            break;
+                    }
+
+                    return this.Ok(query.Select(p => new {Login = p.Name, p.LoginName}));
+                }
             }
             catch (Exception e)
             {
-                _logger.LogError(e, e.Message);
+                this.logger.LogError(e, e.Message);
             }
 
-            return user;
+            return this.NotFound("the bid list is empty");
         }
     }
 }

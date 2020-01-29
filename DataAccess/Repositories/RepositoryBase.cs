@@ -54,18 +54,13 @@ namespace DataAccess.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter,
+        public IQueryable<TEntity> Get(
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
             string includeProperties)
         {
             IQueryable<TEntity> query = _dbSet;
             try
             {
-                if (filter != null)
-                {
-                    query = query.Where(filter);
-                }
-
                 foreach (var includeProperty in includeProperties.Split
                     (new[] {','}, StringSplitOptions.RemoveEmptyEntries))
                 {
