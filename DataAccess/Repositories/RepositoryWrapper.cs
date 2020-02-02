@@ -4,16 +4,17 @@
 
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        private readonly TmContext _context;
+        private readonly TmContext context;
 
-        private IUserRepository _user;
+        private readonly ICallRepository call;
 
 
-        public RepositoryWrapper(TmContext tmContext)
+        public RepositoryWrapper(TmContext tmContext, ICallRepository call)
         {
-            _context = tmContext;
+            this.context = tmContext;
+            this.call = call;
         }
 
-        public IUserRepository User => _user ?? new UserRepository(_context);
+        public ICallRepository Call => this.call ?? new CallRepository(this.context);
     }
 }

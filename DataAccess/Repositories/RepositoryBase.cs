@@ -1,13 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using DataAccess.Repositories.Contracts;
-using Microsoft.EntityFrameworkCore;
-
-namespace DataAccess.Repositories
+﻿namespace DataAccess.Repositories
 {
-    class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
+    using DataAccess.Repositories.Contracts;
+    using Microsoft.EntityFrameworkCore;
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
     {
         private readonly DbContext _dbContext;
         private readonly DbSet<TEntity> _dbSet;
@@ -62,7 +61,7 @@ namespace DataAccess.Repositories
             try
             {
                 foreach (var includeProperty in includeProperties.Split
-                    (new[] {','}, StringSplitOptions.RemoveEmptyEntries))
+                    (new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     query = query.Include(includeProperty);
                 }
@@ -91,7 +90,7 @@ namespace DataAccess.Repositories
         private void Include(string includeProperties, ref IQueryable<TEntity> query)
         {
             foreach (var includeProperty in includeProperties.Split
-                (new[] {','}, StringSplitOptions.RemoveEmptyEntries))
+                (new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 query = query.Include(includeProperty);
             }

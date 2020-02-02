@@ -1,17 +1,14 @@
 ﻿namespace CRUD.Controllers
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-
     using Auth.Model;
     using Auth.Services;
-
+    using DataAccess;
     using DataAccess.Repositories.Contracts;
-
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
+    using System;
+    using System.Linq;
 
     /// <summary>
     /// The Authorization controller.
@@ -26,14 +23,18 @@
         private readonly IAuthenticateService authService;
 
         /// <summary>
+        /// The logger.
+        /// </summary>
+        private readonly ILogger<AuthController> logger;
+
+        /// <summary>
         /// The repository wrapper.
         /// </summary>
         private readonly IRepositoryWrapper repositoryWrapper;
 
-        /// <summary>
-        /// The logger.
-        /// </summary>
-        private readonly ILogger<AuthController> logger;
+        private readonly TmContext _context;
+
+        #region Ctor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthController"/> class.
@@ -50,12 +51,16 @@
         public AuthController(
             IAuthenticateService authService,
             IRepositoryWrapper repositoryWrapper,
-            ILogger<AuthController> logger)
+            ILogger<AuthController> logger,
+            TmContext context)
         {
             this.authService = authService;
             this.repositoryWrapper = repositoryWrapper;
             this.logger = logger;
+            this._context = context;
         }
+
+        #endregion
 
         /// <summary>
         /// Route : api/auth/login.
@@ -67,40 +72,36 @@
         /// The <see cref="IActionResult"/>.
         /// </returns>
         [HttpPost]
+        [Route("Login")]
         [AllowAnonymous]
-        [Route(template: "Login")]
+        [Authorize(AuthenticationSchemes = "Windows")]
         public IActionResult Login([FromBody] AuthenticateModel model)
         {
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
                 try
                 {
-                    var user = this.repositoryWrapper.User.Get()
-                        .FirstOrDefault(predicate: p => p.LoginName == model.Login);
+                    var user = this._context.Users.FirstOrDefault(p => p.LoginName == model.Login);
 
-                    // if (user != null && CalculatePasswordService.CalculatePassword(model.Password) == user.SdwebPassword)
-                    if (user != null)
+                    if (user != null && user.SdwebPassword != null)
                     {
-                        if (this.authService.IsAuthenticated(requestModel: model, token: out var token))
+                        byte[] password = Array.ConvertAll(user.SdwebPassword, x => x);
+
+                        if (this.authService.IsAuthenticated(user.LoginName, password, model, out var token))
                         {
-                            return Ok(value: new
-                            {
-                                Id = user.Id,
-                                Name = user.Name,
-                                Token = token
-                            });
+                            return this.Ok(new { Id = user.Id, Name = user.Name, Token = token });
                         }
                     }
 
-                    return Unauthorized(value: "The username or password is incorrect");
+                    return this.Unauthorized("The username or password is incorrect");
                 }
                 catch (Exception e)
                 {
-                    this.logger.LogError(exception: e, message: e.Message);
+                    this.logger.LogError(message: e.Message, exception: e);
                 }
             }
 
-            return BadRequest(modelState: ModelState);
+            return this.BadRequest();
         }
     }
 }

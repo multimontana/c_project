@@ -2,6 +2,6 @@
 {
     public interface IRepositoryWrapper
     {
-        IUserRepository User { get; }
+        public ICallRepository Call { get; }
     }
 }

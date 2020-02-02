@@ -1,47 +1,45 @@
-using System;
-using System.Text;
-using Auth.Model;
-using CRUD.Configuration;
-using DataAccess;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.CookiePolicy;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
-
 namespace CRUD
 {
+    using Auth.Model;
+    using CRUD.Configuration;
+    using DataAccess;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.CookiePolicy;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.IdentityModel.Tokens;
+    using Newtonsoft.Json;
+    using System;
+    using System.Text;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         private IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // This method gets called by the runtime.
+        // This method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TmContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            #region Jwt Auth
+                options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
             // Config Jwt token
-            services.Configure<TokenManagement>(Configuration.GetSection("tokenManagement"));
+            services.Configure<TokenManagement>(this.Configuration.GetSection("tokenManagement"));
 
-            // configure strongly typed settings objects
-            var token = Configuration.GetSection("tokenManagement").Get<TokenManagement>();
+            // Configure strongly typed settings objects
+            var token = this.Configuration.GetSection("tokenManagement").Get<TokenManagement>();
             var secret = Encoding.ASCII.GetBytes(token.Secret);
 
-            // configure jwt authentication
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -59,11 +57,6 @@ namespace CRUD
                 };
             });
 
-            #endregion
-
-            // Windows auth
-            // services.AddAuthentication(IISDefaults.AuthenticationScheme);
-
             // Add Services
             services.ConfigureRepositoryWrapper();
             services.ConfigureAuthUsers();
@@ -78,9 +71,11 @@ namespace CRUD
                 });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the runtime.
+        // This method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Log Api calls
             app.Use(async (context, next) =>
             {
                 await next.Invoke();
@@ -113,7 +108,6 @@ namespace CRUD
                 HttpOnly = HttpOnlyPolicy.Always,
                 Secure = CookieSecurePolicy.Always
             });
-
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }

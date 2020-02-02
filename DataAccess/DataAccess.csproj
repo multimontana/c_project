@@ -25,6 +25,8 @@
     <Compile Remove="Mappings\RoomEntityConfiguration.cs" />
     <Compile Remove="Mappings\TimeZoneEntityConfiguration.cs" />
     <Compile Remove="Mappings\WorkplaceEntityConfiguration.cs" />
+    <Compile Remove="Repositories\Contracts\IUserRepository.cs" />
+    <Compile Remove="Repositories\UserRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>

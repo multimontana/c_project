@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-
-namespace Auth.Model
+﻿namespace Auth.Model
 {
+    using Newtonsoft.Json;
+
     public class TokenManagement
     {
         [JsonProperty("secret")]

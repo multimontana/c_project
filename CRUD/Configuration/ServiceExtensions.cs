@@ -20,6 +20,7 @@
         /// </param>
         public static void ConfigureRepositoryWrapper(this IServiceCollection services)
         {
+            services.AddScoped<ICallRepository, CallRepository>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
 
@@ -31,7 +32,6 @@
         /// </param>
         public static void ConfigureAuthUsers(this IServiceCollection services)
         {
-            // configure DI for application services
             services.AddScoped<IAuthenticateService, TokenAuthenticationService>();
             services.AddScoped<IUserManagementService, UserManagementService>();
         }

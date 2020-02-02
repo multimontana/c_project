@@ -2,7 +2,7 @@
 {
     using DataAccess.DTOs;
 
-    public interface IUserRepository : IRepositoryBase<User>
+    public interface ICallRepository : IRepositoryBase<Call>
     {
     }
 }

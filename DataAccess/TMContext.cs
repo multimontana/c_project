@@ -1,5 +1,7 @@
 ﻿namespace DataAccess
 {
+    using DataAccess.DTOs;
+
     using Log;
     using Mappings;
     using Microsoft.EntityFrameworkCore;
@@ -25,9 +27,12 @@
             optionsBuilder.UseLoggerFactory(MyLoggerFactory);
         }
 
+        public DbSet<User> Users { set; get; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new CallEntityConfiguration());
         }
 
         /// <summary>
