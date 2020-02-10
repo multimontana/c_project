@@ -1,0 +1,34 @@
+
+16:56:18  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+16:56:21  +04	Executed DbCommand (193ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [view_Call] AS [v]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+
+16:56:22  +04	Executed DbCommand (357ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_0) [v].[Number], [v].[CallSummaryName] AS [SummaryName], [v].[ClientFullName] AS [Client], [v].[UtcDateRegistered] AS [DateRegist], [p].[Color] AS [PriorityColor], [v].[EntityStateName] AS [State], [c].[Icon]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+ORDER BY [v].[Number] DESC
+
+20:55:37  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+20:55:42  +04	Executed DbCommand (181ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [view_Call] AS [v]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+
+20:55:43  +04	Executed DbCommand (917ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_0) [v].[Number], [v].[CallSummaryName] AS [SummaryName], [v].[ClientFullName] AS [Client], [v].[UtcDateRegistered] AS [DateRegist], [p].[Color] AS [PriorityColor], [v].[EntityStateName] AS [State], [c].[Icon]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+ORDER BY [v].[Number] DESC

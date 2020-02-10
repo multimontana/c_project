@@ -1,0 +1,138 @@
+
+15:06:20  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+15:06:42  +04	Executed DbCommand (132ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [view_Call] AS [v]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+
+15:06:43  +04	Executed DbCommand (263ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_0) [v].[Number], [v].[CallSummaryName] AS [SummaryName], [v].[ClientFullName] AS [Client], [v].[UtcDateRegistered] AS [DateRegist], [p].[Color] AS [PriorityColor], [v].[EntityStateName] AS [State], [c].[Icon]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+ORDER BY [v].[Number] DESC
+
+15:25:53  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+15:25:54  +04	Executed DbCommand (88ms) [Parameters=[@__model_Login_0='?' (Size = 100)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [п].[Идентификатор], [п].[Login name], [п].[Имя], [п].[SDWebPassword]
+FROM [Пользователи] AS [п]
+WHERE [п].[Login name] = @__model_Login_0
+
+15:26:52  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+15:26:56  +04	Executed DbCommand (88ms) [Parameters=[@__ToLower_0='?' (Size = 250)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [view_Call] AS [v]
+        WHERE (@__ToLower_0 = N'') OR (CHARINDEX(@__ToLower_0, LOWER([v].[CallSummaryName])) > 0)) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+
+15:26:56  +04	Executed DbCommand (207ms) [Parameters=[@__p_1='?' (DbType = Int32), @__ToLower_0='?' (Size = 250)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [v].[Number], [v].[CallSummaryName] AS [SummaryName], [v].[ClientFullName] AS [Client], [v].[UtcDateRegistered] AS [DateRegist], [p].[Color] AS [PriorityColor], [v].[EntityStateName] AS [State], [c].[Icon]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+WHERE (@__ToLower_0 = N'') OR (CHARINDEX(@__ToLower_0, LOWER([v].[CallSummaryName])) > 0)
+ORDER BY [v].[Number] DESC
+
+15:29:43  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+15:34:30  +04	Executed DbCommand (203ms) [Parameters=[@__ToLower_0='?' (Size = 250)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [view_Call] AS [v]
+        WHERE (@__ToLower_0 = N'') OR (CHARINDEX(@__ToLower_0, LOWER([v].[CallSummaryName])) > 0)) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+
+15:34:31  +04	Executed DbCommand (622ms) [Parameters=[@__p_1='?' (DbType = Int32), @__ToLower_0='?' (Size = 250)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [v].[Number], [v].[CallSummaryName] AS [SummaryName], [v].[ClientFullName] AS [Client], [v].[UtcDateRegistered] AS [DateRegist], [p].[Color] AS [PriorityColor], [v].[EntityStateName] AS [State], [c].[Icon]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+WHERE (@__ToLower_0 = N'') OR (CHARINDEX(@__ToLower_0, LOWER([v].[CallSummaryName])) > 0)
+ORDER BY [v].[Number] DESC
+
+15:39:15  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+15:39:16  +04	Executed DbCommand (298ms) [Parameters=[@__ToLower_0='?' (Size = 250)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [view_Call] AS [v]
+        WHERE (@__ToLower_0 = N'') OR (CHARINDEX(@__ToLower_0, LOWER([v].[CallSummaryName])) > 0)) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+
+15:39:17  +04	Executed DbCommand (1,407ms) [Parameters=[@__p_1='?' (DbType = Int32), @__ToLower_0='?' (Size = 250)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [v].[Number], [v].[CallSummaryName] AS [SummaryName], [v].[ClientFullName] AS [Client], [v].[UtcDateRegistered] AS [DateRegist], [p].[Color] AS [PriorityColor], [v].[EntityStateName] AS [State], [c].[Icon]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+WHERE (@__ToLower_0 = N'') OR (CHARINDEX(@__ToLower_0, LOWER([v].[CallSummaryName])) > 0)
+ORDER BY [v].[Number] DESC
+
+17:49:26  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+17:49:27  +04	Executed DbCommand (187ms) [Parameters=[@__ToLower_0='?' (Size = 250)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [view_Call] AS [v]
+        WHERE (@__ToLower_0 = N'') OR (CHARINDEX(@__ToLower_0, LOWER([v].[CallSummaryName])) > 0)) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+
+17:49:28  +04	Executed DbCommand (225ms) [Parameters=[@__p_1='?' (DbType = Int32), @__ToLower_0='?' (Size = 250)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [v].[Number], [v].[CallSummaryName] AS [SummaryName], [v].[ClientFullName] AS [Client], [v].[UtcDateRegistered] AS [DateRegist], [p].[Color] AS [PriorityColor], [v].[EntityStateName] AS [State], [c].[Icon]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+WHERE (@__ToLower_0 = N'') OR (CHARINDEX(@__ToLower_0, LOWER([v].[CallSummaryName])) > 0)
+ORDER BY [v].[Number] DESC
+
+17:49:47  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+17:49:47  +04	Executed DbCommand (94ms) [Parameters=[@__ToLower_0='?' (Size = 250)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [view_Call] AS [v]
+        WHERE (@__ToLower_0 = N'') OR (CHARINDEX(@__ToLower_0, LOWER([v].[CallSummaryName])) > 0)) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+
+17:49:47  +04	Executed DbCommand (105ms) [Parameters=[@__p_1='?' (DbType = Int32), @__ToLower_0='?' (Size = 250)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [v].[Number], [v].[CallSummaryName] AS [SummaryName], [v].[ClientFullName] AS [Client], [v].[UtcDateRegistered] AS [DateRegist], [p].[Color] AS [PriorityColor], [v].[EntityStateName] AS [State], [c].[Icon]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+WHERE (@__ToLower_0 = N'') OR (CHARINDEX(@__ToLower_0, LOWER([v].[CallSummaryName])) > 0)
+ORDER BY [v].[Number] DESC
+
+17:50:00  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+17:50:00  +04	Executed DbCommand (93ms) [Parameters=[@__ToLower_0='?' (Size = 250)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [view_Call] AS [v]
+        WHERE (@__ToLower_0 = N'') OR (CHARINDEX(@__ToLower_0, LOWER([v].[CallSummaryName])) > 0)) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+
+17:50:00  +04	Executed DbCommand (104ms) [Parameters=[@__p_1='?' (DbType = Int32), @__ToLower_0='?' (Size = 250)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [v].[Number], [v].[CallSummaryName] AS [SummaryName], [v].[ClientFullName] AS [Client], [v].[UtcDateRegistered] AS [DateRegist], [p].[Color] AS [PriorityColor], [v].[EntityStateName] AS [State], [c].[Icon]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+WHERE (@__ToLower_0 = N'') OR (CHARINDEX(@__ToLower_0, LOWER([v].[CallSummaryName])) > 0)
+ORDER BY [v].[Number] DESC
