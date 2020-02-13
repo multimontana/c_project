@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Calls\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InfraManager.WebApi.DAL\InfraManager.WebApi.DAL.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,232 @@
+
+00:43:37  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+00:43:39  +04	Executed DbCommand (127ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [view_Call] AS [v]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+
+00:43:40  +04	Executed DbCommand (277ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_0) [v].[Number], [v].[CallSummaryName] AS [SummaryName], [v].[ClientFullName] AS [Client], [v].[UtcDateRegistered] AS [DateRegist], [p].[Color] AS [PriorityColor], [v].[EntityStateName] AS [State], [c].[Icon]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+ORDER BY [v].[Number] DESC
+
+01:00:03  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+01:00:04  +04	Executed DbCommand (91ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [view_Call] AS [v]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+
+01:00:04  +04	Executed DbCommand (198ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_0) [v].[Number], [v].[CallSummaryName] AS [SummaryName], [v].[ClientFullName] AS [Client], [v].[UtcDateRegistered] AS [DateRegist], [p].[Color] AS [PriorityColor], [v].[EntityStateName] AS [State], [c].[Icon]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+ORDER BY [v].[Number] DESC
+
+01:18:13  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+01:18:16  +04	Executed DbCommand (128ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [view_Call] AS [v]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+
+01:18:16  +04	Executed DbCommand (261ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_0) [v].[Number], [v].[CallSummaryName] AS [SummaryName], [v].[ClientFullName] AS [Client], [v].[UtcDateRegistered] AS [DateRegist], [p].[Color] AS [PriorityColor], [v].[EntityStateName] AS [State], [c].[Icon]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+ORDER BY [v].[Number] DESC
+
+01:32:01  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+01:32:02  +04	Executed DbCommand (87ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [view_Call] AS [v]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+
+01:32:02  +04	Executed DbCommand (185ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_0) [v].[Number], [v].[CallSummaryName] AS [SummaryName], [v].[ClientFullName] AS [Client], [v].[UtcDateRegistered] AS [DateRegist], [p].[Color] AS [PriorityColor], [v].[EntityStateName] AS [State], [c].[Icon]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+ORDER BY [v].[Number] DESC
+
+01:32:07  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+01:32:07  +04	Executed DbCommand (305ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [view_Call] AS [v]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+
+01:32:07  +04	Executed DbCommand (381ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_0) [v].[Number], [v].[CallSummaryName] AS [SummaryName], [v].[ClientFullName] AS [Client], [v].[UtcDateRegistered] AS [DateRegist], [p].[Color] AS [PriorityColor], [v].[EntityStateName] AS [State], [c].[Icon]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+ORDER BY [v].[Number] DESC
+
+01:32:12  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+01:32:12  +04	Executed DbCommand (621ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [view_Call] AS [v]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+
+01:32:12  +04	Executed DbCommand (96ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_0) [v].[Number], [v].[CallSummaryName] AS [SummaryName], [v].[ClientFullName] AS [Client], [v].[UtcDateRegistered] AS [DateRegist], [p].[Color] AS [PriorityColor], [v].[EntityStateName] AS [State], [c].[Icon]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+ORDER BY [v].[Number] DESC
+
+01:32:17  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+01:32:17  +04	Executed DbCommand (109ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [view_Call] AS [v]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+
+01:32:17  +04	Executed DbCommand (140ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_0) [v].[Number], [v].[CallSummaryName] AS [SummaryName], [v].[ClientFullName] AS [Client], [v].[UtcDateRegistered] AS [DateRegist], [p].[Color] AS [PriorityColor], [v].[EntityStateName] AS [State], [c].[Icon]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+ORDER BY [v].[Number] DESC
+
+01:32:20  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+01:32:20  +04	Executed DbCommand (87ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [view_Call] AS [v]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+
+01:32:21  +04	Executed DbCommand (676ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_0) [v].[Number], [v].[CallSummaryName] AS [SummaryName], [v].[ClientFullName] AS [Client], [v].[UtcDateRegistered] AS [DateRegist], [p].[Color] AS [PriorityColor], [v].[EntityStateName] AS [State], [c].[Icon]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+ORDER BY [v].[Number] DESC
+
+01:34:07  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+01:34:07  +04	Executed DbCommand (664ms) [Parameters=[@__model_Login_0='?' (Size = 100)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [п].[Идентификатор], [п].[Login name], [п].[Имя], [п].[SDWebPassword]
+FROM [Пользователи] AS [п]
+WHERE [п].[Login name] = @__model_Login_0
+
+01:34:26  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+01:34:54  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+01:35:08  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+01:35:09  +04	Executed DbCommand (698ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [view_Call] AS [v]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+
+01:35:09  +04	Executed DbCommand (98ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_0) [v].[Number], [v].[CallSummaryName] AS [SummaryName], [v].[ClientFullName] AS [Client], [v].[UtcDateRegistered] AS [DateRegist], [p].[Color] AS [PriorityColor], [v].[EntityStateName] AS [State], [c].[Icon]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+ORDER BY [v].[Number] DESC
+
+01:35:14  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+01:40:41  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+01:40:44  +04	Failed executing DbCommand (428ms) [Parameters=[@__number_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [v].[ID], [v].[AccomplisherFullName], [v].[AccomplisherId], [v].[CallSummaryName], [v].[CallTypeId], [v].[ClientFullName], [v].[EntityStateName], [v].[ExecutorFullName], [v].[ExecutorId], [v].[HTMLDescription], [v].[HTMLSolution], [v].[Number], [v].[OwnerFullName], [v].[OwnerId], [v].[PriorityID], [v].[QueueId], [v].[ServiceId], [v].[ServiceItemFullName], [v].[UtcDateClosed], [v].[UtcDateOpened], [v].[UtcDateRegistered], [p].[Id], [p].[Color], [c].[Id], [c].[Icon], [c].[Name]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+WHERE [v].[Number] = @__number_0
+ORDER BY [v].[Number] DESC
+
+01:40:44  +04	An exception occurred while iterating over the results of a query for context type 'InfraManager.WebApi.DAL.TmContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'HTMLDescription'.
+Invalid column name 'HTMLSolution'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.InitializeReader(DbContext _, Boolean result)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.MoveNext()
+ClientConnectionId:240dac5f-871c-4e96-827a-0cdf37c6c5c3
+Error Number:207,State:1,Class:16
+
+01:40:57  +04	Entity Framework Core 3.1.1 initialized 'TmContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+
+01:41:06  +04	Failed executing DbCommand (405ms) [Parameters=[@__number_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [v].[ID], [v].[AccomplisherFullName], [v].[AccomplisherId], [v].[CallSummaryName], [v].[CallTypeId], [v].[ClientFullName], [v].[EntityStateName], [v].[ExecutorFullName], [v].[ExecutorId], [v].[HTMLDescription], [v].[HTMLSolution], [v].[Number], [v].[OwnerFullName], [v].[OwnerId], [v].[PriorityID], [v].[QueueId], [v].[ServiceId], [v].[ServiceItemFullName], [v].[UtcDateClosed], [v].[UtcDateOpened], [v].[UtcDateRegistered], [p].[Id], [p].[Color], [c].[Id], [c].[Icon], [c].[Name]
+FROM [view_Call] AS [v]
+INNER JOIN [Priority] AS [p] ON [v].[PriorityID] = [p].[Id]
+INNER JOIN [CallType] AS [c] ON [v].[CallTypeId] = [c].[Id]
+WHERE [v].[Number] = @__number_0
+ORDER BY [v].[Number] DESC
+
+01:41:06  +04	An exception occurred while iterating over the results of a query for context type 'InfraManager.WebApi.DAL.TmContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'HTMLDescription'.
+Invalid column name 'HTMLSolution'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.InitializeReader(DbContext _, Boolean result)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.MoveNext()
+ClientConnectionId:1414fef4-a8f1-444c-a762-85d385b0b2df
+Error Number:207,State:1,Class:16

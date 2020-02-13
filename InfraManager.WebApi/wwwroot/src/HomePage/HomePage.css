@@ -1,0 +1,88 @@
+*{
+    font-size: 50px;
+}
+
+.mainUsers{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.header{
+    width: inherit;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #3c56ad;
+    color: #fff;
+}
+
+.parent{
+    width: 100%;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+ .child{
+    width: 100%;
+    padding: 20px;
+    background: #d3e0e8;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.child>img{
+    width: 80px;
+    height: 80px;
+}
+
+.content{
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 30px;
+} 
+.time{
+    width: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.items{
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.logout_parent{
+    cursor: pointer;
+}
+
+.toggle{
+    width: 100px;
+    height: 100px;
+    position: relative;
+    background: #3c56ad;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.drop_down{
+    width: 100px;
+    height: 100px;
+    background:#3c56ad;
+    position: absolute;
+    top: 120px;
+    right: 20px;
+    padding: 25px;
+}

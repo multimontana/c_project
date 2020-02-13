@@ -7,7 +7,6 @@
     using Auth.Services;
 
     using InfraManager.WebApi.DAL;
-    using InfraManager.WebApi.DAL.Repositories.Contracts;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -30,12 +29,7 @@
         /// </summary>
         private readonly ILogger<AuthController> logger;
 
-        /// <summary>
-        /// The repository wrapper.
-        /// </summary>
-        private readonly IRepositoryWrapper repositoryWrapper;
-
-        private readonly TmContext _context;
+        private readonly TmContext context;
 
         #region Ctor
 
@@ -45,22 +39,20 @@
         /// <param name="authService">
         /// The auth service.
         /// </param>
-        /// <param name="repositoryWrapper">
-        /// The repository wrapper.
-        /// </param>
         /// <param name="logger">
         /// The logger.
         /// </param>
+        /// <param name="context">
+        /// The context.
+        /// </param>
         public AuthController(
             IAuthenticateService authService,
-            IRepositoryWrapper repositoryWrapper,
             ILogger<AuthController> logger,
             TmContext context)
         {
             this.authService = authService;
-            this.repositoryWrapper = repositoryWrapper;
             this.logger = logger;
-            this._context = context;
+            this.context = context;
         }
 
         #endregion
@@ -84,15 +76,15 @@
             {
                 try
                 {
-                    var user = this._context.Users.FirstOrDefault(p => p.LoginName == model.Login);
+                    var user = this.context.Users.FirstOrDefault(p => p.LoginName == model.Login);
 
-                    if (user != null && user.SdwebPassword != null)
+                    if (user?.SdwebPassword != null)
                     {
                         byte[] password = Array.ConvertAll(user.SdwebPassword, x => x);
 
                         if (this.authService.IsAuthenticated(user.LoginName, password, model, out var token))
                         {
-                            return this.Ok(new { Id = user.Id, Name = user.Name, Token = token });
+                            return this.Ok(new { user.Id, user.Name, Token = token });
                         }
                     }
 

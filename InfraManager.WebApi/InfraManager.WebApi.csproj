@@ -11,37 +11,36 @@
     <Compile Remove="Logs\**" />
     <Compile Remove="Model\**" />
     <Compile Remove="Services\**" />
+    <Compile Remove="wwwroot\**" />
     <Content Remove="Helpers\**" />
     <Content Remove="Logs\**" />
     <Content Remove="Model\**" />
     <Content Remove="Services\**" />
+    <Content Remove="wwwroot\**" />
     <EmbeddedResource Remove="Helpers\**" />
     <EmbeddedResource Remove="Logs\**" />
     <EmbeddedResource Remove="Model\**" />
     <EmbeddedResource Remove="Services\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="Helpers\**" />
     <None Remove="Logs\**" />
     <None Remove="Model\**" />
     <None Remove="Services\**" />
+    <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="JavaScriptEngineSwitcher.ChakraCore" Version="3.3.0" />
-    <PackageReference Include="JavaScriptEngineSwitcher.ChakraCore.Native.osx-x64" Version="3.3.0" />
-    <PackageReference Include="JavaScriptEngineSwitcher.ChakraCore.Native.win-x64" Version="3.3.0" />
-    <PackageReference Include="JavaScriptEngineSwitcher.Extensions.MsDependencyInjection" Version="3.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.1" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.6.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
-    <PackageReference Include="React.AspNet" Version="5.1.2" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\InfraManager.WebApi.Auth\InfraManager.WebApi.Auth.csproj" />
+    <ProjectReference Include="..\InfraManager.WebApi.BLL\InfraManager.WebApi.BLL.csproj" />
     <ProjectReference Include="..\InfraManager.WebApi.DAL\InfraManager.WebApi.DAL.csproj" />
   </ItemGroup>
 

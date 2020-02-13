@@ -1,8 +1,8 @@
 ﻿namespace InfraManager.WebApi.Configuration
 {
     using InfraManager.WebApi.Auth.Services;
-    using InfraManager.WebApi.DAL.Repositories;
-    using InfraManager.WebApi.DAL.Repositories.Contracts;
+    using InfraManager.WebApi.BLL.Repositories;
+    using InfraManager.WebApi.BLL.Repositories.Contracts;
 
     using Microsoft.Extensions.DependencyInjection;
 

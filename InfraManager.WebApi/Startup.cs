@@ -1,4 +1,4 @@
-namespace CRUD
+namespace InfraManager.WebApi
 {
     using System;
     using System.Text;
@@ -6,9 +6,6 @@ namespace CRUD
     using InfraManager.WebApi.Auth.Model;
     using InfraManager.WebApi.Configuration;
     using InfraManager.WebApi.DAL;
-
-    using JavaScriptEngineSwitcher.ChakraCore;
-    using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
@@ -22,9 +19,6 @@ namespace CRUD
     using Microsoft.IdentityModel.Tokens;
 
     using Newtonsoft.Json;
-
-    using React.AspNet;
-
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -77,20 +71,12 @@ namespace CRUD
                     options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                 });
-            services.AddMemoryCache();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddReact();
-            services.AddJsEngineSwitcher(options => options.DefaultEngineName = ChakraCoreJsEngine.EngineName).AddChakraCore();
         }
 
         // This method gets called by the runtime.
         // This method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseReact(config => { });
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
-
             // Log Api calls
             app.Use(async (context, next) =>
             {

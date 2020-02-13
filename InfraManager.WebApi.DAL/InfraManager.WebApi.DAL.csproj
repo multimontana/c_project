@@ -6,8 +6,11 @@
 
   <ItemGroup>
     <Compile Remove="Models\**" />
+    <Compile Remove="Repositories\**" />
     <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="Repositories\**" />
     <None Remove="Models\**" />
+    <None Remove="Repositories\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,17 +28,10 @@
     <Compile Remove="Mappings\RoomEntityConfiguration.cs" />
     <Compile Remove="Mappings\TimeZoneEntityConfiguration.cs" />
     <Compile Remove="Mappings\WorkplaceEntityConfiguration.cs" />
-    <Compile Remove="Repositories\Contracts\IUserRepository.cs" />
-    <Compile Remove="Repositories\UserRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>

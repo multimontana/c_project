@@ -1,4 +1,4 @@
-namespace CRUD
+namespace InfraManager.WebApi
 {
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Hosting;

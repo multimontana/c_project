@@ -3,22 +3,25 @@
     using System;
     using System.Linq;
 
-    using InfraManager.WebApi.DAL.Repositories.Contracts;
+    using InfraManager.WebApi.BLL.Repositories.Contracts;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
 
+    /// <summary>
+    /// The proposal controller.
+    /// </summary>
     [Authorize]
     [ApiController]
     [Route("api/[controller]")]
-    public class CardProposalController : ControllerBase
+    public class CallController : ControllerBase
     {
         /// <summary>
         /// The logger.
         /// </summary>
-        private readonly ILogger<CardProposalController> logger;
+        private readonly ILogger<CallController> logger;
 
         /// <summary>
         /// The repository wrapper.
@@ -26,7 +29,7 @@
         private readonly IRepositoryWrapper repositoryWrapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CardProposalController"/> class.
+        /// Initializes a new instance of the <see cref="CallController"/> class.
         /// </summary>
         /// <param name="repositoryWrapper">
         /// The repository wrapper.
@@ -34,20 +37,99 @@
         /// <param name="logger">
         /// The logger.
         /// </param>
-        public CardProposalController(IRepositoryWrapper repositoryWrapper, ILogger<CardProposalController> logger)
+        public CallController(IRepositoryWrapper repositoryWrapper, ILogger<CallController> logger)
         {
             this.repositoryWrapper = repositoryWrapper;
             this.logger = logger;
         }
 
+        /// <summary>
+        /// The Get api/Call{filter/search/limit}.
+        /// </summary>
+        /// params filter, search, limit
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
         [HttpGet]
-        public IActionResult Get(int number)
+        public IActionResult Get([FromQuery] string filter, string search, int limit = 20)
         {
             try
             {
+                var query = this.repositoryWrapper.Call
+                    .Get(callOrder => callOrder.OrderByDescending(p => p.Number));
+
+                if (!string.IsNullOrEmpty(search))
+                {
+                    // Take lowercase strings(SummaryName and search field) for comparison
+                    // and get those proposals whose <SummaryName> field
+                    // contain received string from the query string
+                    query = query.Where(o => o.CallSummaryName != null).Where(
+                        p => p.CallSummaryName.ToLower().Contains(search.Trim().ToLower()));
+                }
+
+                switch (filter)
+                {
+                    case "Unassigned":
+                        query = query.Where(p => p.OwnerId == null).Where(p => p.ExecutorId == null)
+                            .Where(p => p.QueueId == null);
+                        break;
+
+                    case "MineAtwork":
+                        query = query.Where(p => p.ExecutorId != null || p.OwnerId != null)
+                            .Where(p => p.UtcDateOpened != null);
+                        break;
+                }
+
+                if (query.Any())
+                {
+                    return this.Ok(
+                        query.Include(p => p.Priority).Select(
+                            p => new
+                                     {
+                                         p.Number,
+                                         SummaryName = p.CallSummaryName,
+                                         Client = p.ClientFullName,
+                                         DateRegist = p.UtcDateRegistered,
+                                         PriorityColor = p.Priority.Color,
+                                         State = p.EntityStateName,
+                                         p.CallType.Icon
+                                     }).Take(limit));
+                }
+
+                return this.NotFound("Список заявок пуст");
+            }
+            catch (Exception e)
+            {
+                this.logger.LogError(e, e.Message);
+            }
+
+            return this.BadRequest();
+        }
+
+        /// <summary>
+        /// The Post api/Call
+        /// </summary>
+        /// Param Call number
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
+        [HttpPost]
+        public IActionResult Post(int number)
+        {
+            try
+            {
+                if (number <= 0)
+                {
+                    this.logger.LogTrace("The call number have incorrect value");
+                    return this.BadRequest();
+                }
+
                 // Get a proposal through number
-                var query = this.repositoryWrapper.Call.Get(callOrder => callOrder.OrderByDescending(p => p.Number))
-                    .Include(p => p.Priority).Include(p => p.CallType).FirstOrDefault(p => p.Number == number);
+                var query = this.repositoryWrapper.Call
+                    .Get(callOrder => callOrder.OrderByDescending(p => p.Number))
+                    .Include(p => p.Priority)
+                    .Include(p => p.CallType)
+                    .FirstOrDefault(p => p.Number == number);
 
                 if (query != null)
                 {
@@ -94,14 +176,15 @@
                     var classification = new
                                              {
                                                  Type = query.CallType.Name,
+
                                                  // WayOfReception =
                                                  Sercice = query.ServiceItemFullName
                                              };
                     var essenceOfTask = new
                                             {
-                                                Description = query.Htmldescription,
-                                                Solution = query.Htmlsolution,
-                                                // Attachments =    
+                                                Description = query.Htmldescription, Solution = query.Htmlsolution,
+
+                                                // Attachments =       
                                             };
                     var general = new
                                       {
@@ -109,8 +192,8 @@
                                           People = people,
                                           Classification = classification,
                                           EssenceOfTask = essenceOfTask
-                    };
-                    
+                                      };
+
                     return this.Ok(general);
                 }
 
