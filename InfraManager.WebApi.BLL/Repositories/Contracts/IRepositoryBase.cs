@@ -17,12 +17,14 @@
         /// <summary>
         /// Get entity [order, including]
         /// </summary>
-        /// <param name="orderBy"></param>
-        /// <param name="includeProperties"></param>
-        /// <returns></returns>
+        /// <param name="orderBy">The order</param>
+        /// <param name="includeProperties">The include property</param>
+        /// <returns>
+        /// The <see cref=" IQueryable"/>.
+        /// /// </returns>
         IQueryable<TEntity> Get(
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "");
+            params string[] includeProperties);
 
         Task<TEntity> GetByIdAsync(int id);
     }

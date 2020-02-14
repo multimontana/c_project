@@ -40,14 +40,17 @@ namespace InfraManager.WebApi
             services.Configure<TokenManagement>(this.Configuration.GetSection("tokenManagement"));
 
             // Configure strongly typed settings objects
-            var token = this.Configuration.GetSection("tokenManagement").Get<TokenManagement>();
+            var token = this.Configuration
+                .GetSection("tokenManagement")
+                .Get<TokenManagement>();
             var secret = Encoding.ASCII.GetBytes(token.Secret);
 
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
+            })
+                .AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
@@ -72,6 +75,9 @@ namespace InfraManager.WebApi
                     options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                 });
+
+            // Add caching
+            services.AddMemoryCache();
         }
 
         // This method gets called by the runtime.

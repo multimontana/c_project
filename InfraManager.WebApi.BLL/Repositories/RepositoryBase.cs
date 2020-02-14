@@ -51,7 +51,7 @@
 
             await this._dbContext.SaveChangesAsync();
         }
-
+        
         public async Task UpdateAsync(TEntity entity)
         {
             this._dbSet.Add(entity);
@@ -60,17 +60,12 @@
 
         public IQueryable<TEntity> Get(
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
-            string includeProperties)
+            params string[] includeProperties)
         {
             IQueryable<TEntity> query = this._dbSet;
             try
             {
-                foreach (var includeProperty in includeProperties.Split(
-                    new[] { ',' },
-                    StringSplitOptions.RemoveEmptyEntries))
-                {
-                    query = query.Include(includeProperty);
-                }
+                this.Include(ref query, includeProperties);
 
                 if (orderBy != null)
                 {
@@ -93,11 +88,9 @@
             return await this._dbSet.FindAsync(id);
         }
 
-        private void Include(string includeProperties, ref IQueryable<TEntity> query)
+        private void Include(ref IQueryable<TEntity> query, params string[] includeProperties)
         {
-            foreach (var includeProperty in includeProperties.Split(
-                new[] { ',' },
-                StringSplitOptions.RemoveEmptyEntries))
+            foreach (var includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
             }

@@ -1,14 +1,17 @@
 ﻿namespace InfraManager.WebApi.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
-
     using InfraManager.WebApi.BLL.Repositories.Contracts;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Caching.Memory;
     using Microsoft.Extensions.Logging;
+
+    using Call = InfraManager.WebApi.BLL.Calls.Call;
 
     /// <summary>
     /// The Call controller.
@@ -26,7 +29,17 @@
         /// <summary>
         /// The repository wrapper.
         /// </summary>
-        private readonly IRepositoryWrapper repositoryWrapper;
+        // private readonly IRepositoryWrapper repositoryWrapper;
+
+        /// <summary>
+        /// The cache.
+        /// </summary>
+        private IMemoryCache cache;
+
+        /// <summary>
+        /// The Call.
+        /// </summary>
+        private readonly Call call;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CallController"/> class.
@@ -37,10 +50,16 @@
         /// <param name="logger">
         /// The logger.
         /// </param>
-        public CallController(IRepositoryWrapper repositoryWrapper, ILogger<CallController> logger)
+        public CallController(IRepositoryWrapper repositoryWrapper, ILogger<CallController> logger, IMemoryCache memoryCache)
         {
-            this.repositoryWrapper = repositoryWrapper;
+            // this.repositoryWrapper = repositoryWrapper;
             this.logger = logger;
+
+            if (this.call == null)
+            {
+                this.call = new BLL.Calls.Call(repositoryWrapper);
+            }
+
         }
 
         /// <summary>
@@ -51,49 +70,33 @@
         /// The <see cref="IActionResult"/>.
         /// </returns>
         [HttpGet]
-        public IActionResult Get([FromQuery] string filter, string search, int limit = 20)
+        public IActionResult Get([FromQuery] string filter, string search, int limit = 10)
         {
             try
             {
-                var query = this.repositoryWrapper.Call
-                    .Get(callOrder => callOrder.OrderByDescending(p => p.Number));
+                var calls = this.call.GetCallsOrderByNumber();
 
                 if (!string.IsNullOrEmpty(search))
                 {
-                    // Take lowercase strings(SummaryName and search field) for comparison
-                    // and get those proposals whose <SummaryName> field
-                    // contain received string from the query string
-                    query = query.Where(o => o.CallSummaryName != null).Where(
-                        p => p.CallSummaryName.ToLower().Contains(search.Trim().ToLower()));
+                    calls = this.call.CallSearchBySummaryName(calls, search);
                 }
 
-                switch (filter)
-                {
-                    case "Unassigned":
-                        query = query.Where(p => p.OwnerId == null).Where(p => p.ExecutorId == null)
-                            .Where(p => p.QueueId == null);
-                        break;
+                calls = this.call.CallFiltering(calls, filter);
 
-                    case "MineAtwork":
-                        query = query.Where(p => p.ExecutorId != null || p.OwnerId != null)
-                            .Where(p => p.UtcDateOpened != null);
-                        break;
-                }
-
-                if (query.Any())
+                if (calls.Any())
                 {
                     return this.Ok(
-                        query.Include(p => p.Priority).Select(
+                        calls.Include(p => p.Priority).Select(
                             p => new
-                                     {
-                                         p.Number,
-                                         SummaryName = p.CallSummaryName,
-                                         Client = p.ClientFullName,
-                                         DateRegist = p.UtcDateRegistered,
-                                         PriorityColor = p.Priority.Color,
-                                         State = p.EntityStateName,
-                                         p.CallType.Icon
-                                     }).Take(limit));
+                            {
+                                p.Number,
+                                SummaryName = p.CallSummaryName,
+                                Client = p.ClientFullName,
+                                DateRegist = p.UtcDateRegistered,
+                                PriorityColor = p.Priority.Color,
+                                State = p.EntityStateName,
+                                p.CallType.Icon
+                            }).Take(limit));
                 }
 
                 return this.NotFound("Список заявок пуст");
@@ -114,7 +117,7 @@
         /// The <see cref="IActionResult"/>.
         /// </returns>
         [HttpPost]
-        public IActionResult Post(int number)
+        public IActionResult Post([FromBody]int number)
         {
             try
             {
@@ -125,77 +128,15 @@
                 }
 
                 // Get a call through number
-                //var query
-                var query = this.repositoryWrapper.Call
-                    .Get(callOrder => callOrder.OrderByDescending(p => p.Number))
-                    .Include(p => p.Priority)
-                    .Include(p => p.CallType)
-                    .FirstOrDefault(p => p.Number == number);
+                var callDto = this.call.GetCallsByNumber(number);
 
-                if (query != null)
+                if (callDto != null)
                 {
-                    // Receipt date/time
-                    // Today, Yesterday, Date
-                    string date;
+                    var info = this.call.GetCallInfo(callDto);
 
-                    if (DateTime.Compare(query.UtcDateOpened ?? DateTime.MinValue, DateTime.Today) > 0)
-                    {
-                        date = $"{query.UtcDateOpened:HH:mm}";
-                    }
-                    else if (DateTime.Compare(query.UtcDateOpened ?? DateTime.MinValue, DateTime.Today.AddDays(-1)) > 0)
-                    {
-                        date = "Вчера";
-                    }
-                    else
-                    {
-                        date = $"{query.UtcDateOpened:yyyy:dd:MM-HH:mm}";
-                    }
+                    var callGeneralData = this.call.GetCallGeneralData(callDto);
 
-                    var info = new
-                                   {
-                                       query.Number,
-                                       Date = date,
-                                       PriorityColor = query.Priority.Color,
-                                       SummaryName = query.CallSummaryName,
-                                       Client = query.ClientFullName,
-                                       Role = query.OwnerId.HasValue ? "Исполнитель" : "Владелец"
-                                   };
-
-                    var term = new
-                                   {
-                                       DateCreate = query.UtcDateOpened ?? DateTime.MinValue,
-                                       DateRegist = query.UtcDateRegistered ?? DateTime.MinValue,
-                                       DateClose = query.UtcDateClosed ?? DateTime.MinValue
-                                   };
-                    var people = new
-                                     {
-                                         Client = query.ClientFullName,
-                                         Owner = query.OwnerFullName,
-                                         Executor = query.ExecutorFullName,
-                                         Accomplisher = query.AccomplisherFullName
-                                     };
-                    var classification = new
-                                             {
-                                                 Type = query.CallType.Name,
-
-                                                 // WayOfReception =
-                                                 Sercice = query.ServiceItemFullName
-                                             };
-                    var essenceOfTask = new
-                                            {
-                                                Description = query.Htmldescription, Solution = query.Htmlsolution,
-
-                                                // Attachments =       
-                                            };
-                    var general = new
-                                      {
-                                          Terms = term,
-                                          People = people,
-                                          Classification = classification,
-                                          EssenceOfTask = essenceOfTask
-                                      };
-
-                    return this.Ok(general);
+                    return this.Ok(callGeneralData);
                 }
 
                 return this.NotFound("Список карточка заявок пуст");

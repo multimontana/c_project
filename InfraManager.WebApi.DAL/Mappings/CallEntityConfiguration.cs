@@ -48,11 +48,11 @@
 
             builder.Property(e => e.Htmldescription)
                 .IsRequired()
-                .HasColumnName("HTMLDescription");
+                .HasColumnName("Description");
 
             builder.Property(e => e.Htmlsolution)
                 .IsRequired()
-                .HasColumnName("HTMLSolution");
+                .HasColumnName("Solution");
 
             // Table & Column Mapping
             builder.ToTable("view_Call");

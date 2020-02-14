@@ -5,7 +5,7 @@
     /// <summary>
     /// The Call.
     /// </summary>
-    public partial class Call
+    public class Call
     {
         public Guid Id { get; set; }
 
@@ -18,6 +18,8 @@
         public string Htmlsolution { get; set; }
 
         public Guid? AccomplisherId { get; set; }
+
+        public byte ReceiptType { get; set; }
 
         public string AccomplisherFullName { get; set; }
 
@@ -39,7 +41,7 @@
 
         public DateTime? UtcDateOpened { get; set; }
 
-        public DateTime? UtcDateClosed { get; set; }
+        public DateTime? UtcDateClosed { get; set; }    
 
         public string CallSummaryName { get; set; }
 

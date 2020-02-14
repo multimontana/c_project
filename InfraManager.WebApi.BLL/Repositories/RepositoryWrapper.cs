@@ -5,17 +5,17 @@
 
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        private readonly TmContext context;
+        private static TmContext context;
 
         private readonly ICallRepository call;
 
 
         public RepositoryWrapper(TmContext tmContext, ICallRepository call)
         {
-            this.context = tmContext;
+            context = tmContext;
             this.call = call;
         }
 
-        public ICallRepository Call => this.call ?? new CallRepository(this.context);
+        public ICallRepository Call => this.call ?? new CallRepository(context);
     }
 }
