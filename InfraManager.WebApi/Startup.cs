@@ -19,6 +19,7 @@ namespace InfraManager.WebApi
     using Microsoft.IdentityModel.Tokens;
 
     using Newtonsoft.Json;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
