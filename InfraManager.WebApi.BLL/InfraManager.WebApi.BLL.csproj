@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Calls\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\InfraManager.WebApi.DAL\InfraManager.WebApi.DAL.csproj" />
   </ItemGroup>
 
