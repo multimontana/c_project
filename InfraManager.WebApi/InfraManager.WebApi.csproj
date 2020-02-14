@@ -11,52 +11,22 @@
     <Compile Remove="Logs\**" />
     <Compile Remove="Model\**" />
     <Compile Remove="Services\**" />
+    <Compile Remove="wwwroot\**" />
     <Content Remove="Helpers\**" />
     <Content Remove="Logs\**" />
     <Content Remove="Model\**" />
     <Content Remove="Services\**" />
+    <Content Remove="wwwroot\**" />
     <EmbeddedResource Remove="Helpers\**" />
     <EmbeddedResource Remove="Logs\**" />
     <EmbeddedResource Remove="Model\**" />
     <EmbeddedResource Remove="Services\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="Helpers\**" />
     <None Remove="Logs\**" />
     <None Remove="Model\**" />
     <None Remove="Services\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\src\App\App.js" />
-    <None Include="wwwroot\src\App\index.js" />
-    <None Include="wwwroot\src\HomePage\HomePage.js" />
-    <None Include="wwwroot\src\HomePage\index.js" />
-    <None Include="wwwroot\src\index.js" />
-    <None Include="wwwroot\src\LoginPage\index.js" />
-    <None Include="wwwroot\src\LoginPage\LoginPage.js" />
-    <None Include="wwwroot\src\RegisterPage\index.js" />
-    <None Include="wwwroot\src\RegisterPage\RegisterPage.js" />
-    <None Include="wwwroot\src\_actions\alert.actions.js" />
-    <None Include="wwwroot\src\_actions\index.js" />
-    <None Include="wwwroot\src\_actions\user.actions.js" />
-    <None Include="wwwroot\src\_components\index.js" />
-    <None Include="wwwroot\src\_components\PrivateRoute.js" />
-    <None Include="wwwroot\src\_components\Serch\index.js" />
-    <None Include="wwwroot\src\_components\Serch\Search.js" />
-    <None Include="wwwroot\src\_constants\alert.constants.js" />
-    <None Include="wwwroot\src\_constants\index.js" />
-    <None Include="wwwroot\src\_constants\user.constants.js" />
-    <None Include="wwwroot\src\_helpers\auth-header.js" />
-    <None Include="wwwroot\src\_helpers\fake-backend.js" />
-    <None Include="wwwroot\src\_helpers\history.js" />
-    <None Include="wwwroot\src\_helpers\index.js" />
-    <None Include="wwwroot\src\_helpers\store.js" />
-    <None Include="wwwroot\src\_reducers\alert.reducer.js" />
-    <None Include="wwwroot\src\_reducers\authentication.reducer.js" />
-    <None Include="wwwroot\src\_reducers\index.js" />
-    <None Include="wwwroot\src\_reducers\registration.reducer.js" />
-    <None Include="wwwroot\src\_reducers\users.reducer.js" />
-    <None Include="wwwroot\src\_services\index.js" />
-    <None Include="wwwroot\src\_services\user.service.js" />
+    <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>

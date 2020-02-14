@@ -88,7 +88,7 @@
             }
         }
 
-        public async Task<TEntity> GetByIdAsync(int id)
+        public async Task<TEntity> GetById(int id)
         {
             return await this._dbSet.FindAsync(id);
         }

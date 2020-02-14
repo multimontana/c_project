@@ -11,7 +11,7 @@
     using Microsoft.Extensions.Logging;
 
     /// <summary>
-    /// The Call controller.
+    /// The proposal controller.
     /// </summary>
     [Authorize]
     [ApiController]
@@ -124,8 +124,7 @@
                     return this.BadRequest();
                 }
 
-                // Get a call through number
-                //var query
+                // Get a proposal through number
                 var query = this.repositoryWrapper.Call
                     .Get(callOrder => callOrder.OrderByDescending(p => p.Number))
                     .Include(p => p.Priority)

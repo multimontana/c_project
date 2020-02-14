@@ -24,6 +24,6 @@
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "");
 
-        Task<TEntity> GetByIdAsync(int id);
+        Task<TEntity> GetById(int id);
     }
 }
