@@ -1,6 +1,6 @@
 ﻿namespace InfraManager.WebApi.DAL.Mappings
 {
-    using InfraManager.WebApi.DAL.DTOs;
+    using InfraManager.WebApi.DAL.DTOs.Calls;
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;

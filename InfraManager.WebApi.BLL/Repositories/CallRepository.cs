@@ -1,7 +1,7 @@
 ﻿namespace InfraManager.WebApi.BLL.Repositories
 {
     using InfraManager.WebApi.DAL;
-    using InfraManager.WebApi.DAL.DTOs;
+    using InfraManager.WebApi.DAL.DTOs.Calls;
 
     using ICallRepository = InfraManager.WebApi.BLL.Repositories.Contracts.ICallRepository;
 

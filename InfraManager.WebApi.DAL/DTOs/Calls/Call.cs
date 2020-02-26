@@ -1,4 +1,4 @@
-﻿namespace InfraManager.WebApi.DAL.DTOs
+﻿namespace InfraManager.WebApi.DAL.DTOs.Calls
 {
     using System;
 

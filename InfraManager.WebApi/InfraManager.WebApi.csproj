@@ -26,6 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\BaseController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\src\App\App.js" />
     <None Include="wwwroot\src\App\index.js" />
     <None Include="wwwroot\src\HomePage\HomePage.js" />
@@ -35,20 +39,22 @@
     <None Include="wwwroot\src\LoginPage\LoginPage.js" />
     <None Include="wwwroot\src\RegisterPage\index.js" />
     <None Include="wwwroot\src\RegisterPage\RegisterPage.js" />
+    <None Include="wwwroot\src\SearchPage\index.js" />
+    <None Include="wwwroot\src\SearchPage\SearchPage.js" />
     <None Include="wwwroot\src\_actions\alert.actions.js" />
     <None Include="wwwroot\src\_actions\index.js" />
     <None Include="wwwroot\src\_actions\user.actions.js" />
     <None Include="wwwroot\src\_components\index.js" />
     <None Include="wwwroot\src\_components\PrivateRoute.js" />
-    <None Include="wwwroot\src\_components\Serch\index.js" />
-    <None Include="wwwroot\src\_components\Serch\Search.js" />
     <None Include="wwwroot\src\_constants\alert.constants.js" />
     <None Include="wwwroot\src\_constants\index.js" />
     <None Include="wwwroot\src\_constants\user.constants.js" />
     <None Include="wwwroot\src\_helpers\auth-header.js" />
-    <None Include="wwwroot\src\_helpers\fake-backend.js" />
+    <None Include="wwwroot\src\_helpers\getColor.js" />
+    <None Include="wwwroot\src\_helpers\getMonth.js" />
     <None Include="wwwroot\src\_helpers\history.js" />
     <None Include="wwwroot\src\_helpers\index.js" />
+    <None Include="wwwroot\src\_helpers\rus_to_en.js" />
     <None Include="wwwroot\src\_helpers\store.js" />
     <None Include="wwwroot\src\_reducers\alert.reducer.js" />
     <None Include="wwwroot\src\_reducers\authentication.reducer.js" />
@@ -60,18 +66,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.2" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.6.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\InfraManager.WebApi.Auth\InfraManager.WebApi.Auth.csproj" />
-    <ProjectReference Include="..\InfraManager.WebApi.BLL\InfraManager.WebApi.BLL.csproj" />
     <ProjectReference Include="..\InfraManager.WebApi.DAL\InfraManager.WebApi.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="InfraManager.WebApi.BLL">
+      <HintPath>..\InfraManager.WebApi.BLL\bin\Debug\netcoreapp3.1\InfraManager.WebApi.BLL.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 

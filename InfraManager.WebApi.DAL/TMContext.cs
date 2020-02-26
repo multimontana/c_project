@@ -27,12 +27,14 @@
             optionsBuilder.UseLoggerFactory(MyLoggerFactory);
         }
 
-        public DbSet<User> Users { set; get; }
+        public DbSet<UserDto> Users { set; get; }
+        public DbSet<DocumentDto> ViewDocuments { set; get; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
             modelBuilder.ApplyConfiguration(new CallEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new DocumentEntityConfiguration());
         }
 
         /// <summary>

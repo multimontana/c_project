@@ -5,18 +5,24 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    class UserEntityConfiguration : IEntityTypeConfiguration<User>
+    /// <summary>
+    /// The user entity configuration.
+    /// </summary>
+    public class UserEntityConfiguration : IEntityTypeConfiguration<UserDto>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        /// <summary>
+        /// The configure.
+        /// </summary>
+        /// <param name="builder">
+        /// The builder.
+        /// </param>
+        public void Configure(EntityTypeBuilder<UserDto> builder)
         {
             // Primary Key
             builder.HasKey(e => e.Id);
 
             // Properties
             builder.Property(e => e.Id).ValueGeneratedNever();
-
-            // Table & Column Mapping
-            builder.ToTable("Пользователи");
 
             builder.Property(e => e.Id)
                 .HasColumnName("Идентификатор");
@@ -32,6 +38,9 @@
             builder.Property(e => e.SdwebPassword)
                 .HasColumnName("SDWebPassword")
                 .HasMaxLength(250);
+
+            // Table & Column Mapping
+            builder.ToTable("Пользователи");
         }
     }
 }

@@ -12,57 +12,59 @@
     public class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
         where TEntity : class
     {
-        private readonly DbContext _dbContext;
+        private readonly DbContext dbContext;
 
-        private readonly DbSet<TEntity> _dbSet;
+        private readonly DbSet<TEntity> dbSet;
 
         #region Initialization
 
         protected RepositoryBase(TmContext tmContext)
         {
-            this._dbContext = tmContext;
-            this._dbSet = tmContext.Set<TEntity>();
+            this.dbContext = tmContext;
+            this.dbSet = tmContext.Set<TEntity>();
         }
 
         #endregion
 
         public async Task CreateAsync(TEntity entity)
         {
-            this._dbSet.Add(entity);
-            await this._dbContext.SaveChangesAsync();
+            
+
+            this.dbSet.Add(entity);
+            await this.dbContext.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)
         {
-            TEntity entityToDelete = this._dbSet.Find(id);
-            this._dbContext.Entry(entityToDelete).State = EntityState.Deleted;
+            TEntity entityToDelete = this.dbSet.Find(id);
+            this.dbContext.Entry(entityToDelete).State = EntityState.Deleted;
 
-            await this._dbContext.SaveChangesAsync();
+            await this.dbContext.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(TEntity entityToDelete)
         {
-            if (this._dbContext.Entry(entityToDelete).State == EntityState.Detached)
+            if (this.dbContext.Entry(entityToDelete).State == EntityState.Detached)
             {
-                this._dbSet.Attach(entityToDelete);
+                this.dbSet.Attach(entityToDelete);
             }
 
-            this._dbSet.Remove(entityToDelete);
+            this.dbSet.Remove(entityToDelete);
 
-            await this._dbContext.SaveChangesAsync();
+            await this.dbContext.SaveChangesAsync();
         }
         
         public async Task UpdateAsync(TEntity entity)
         {
-            this._dbSet.Add(entity);
-            await this._dbContext.SaveChangesAsync();
+            this.dbSet.Add(entity);
+            await this.dbContext.SaveChangesAsync();
         }
 
         public IQueryable<TEntity> Get(
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
             params string[] includeProperties)
         {
-            IQueryable<TEntity> query = this._dbSet;
+            IQueryable<TEntity> query = this.dbSet;
             try
             {
                 this.Include(ref query, includeProperties);
@@ -85,7 +87,7 @@
 
         public async Task<TEntity> GetByIdAsync(int id)
         {
-            return await this._dbSet.FindAsync(id);
+            return await this.dbSet.FindAsync(id);
         }
 
         private void Include(ref IQueryable<TEntity> query, params string[] includeProperties)

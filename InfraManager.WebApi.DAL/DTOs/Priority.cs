@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
 
+    using InfraManager.WebApi.DAL.DTOs.Calls;
+
     public class Priority
     {
         public Guid Id { get; set; }

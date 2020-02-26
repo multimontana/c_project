@@ -20,7 +20,7 @@
     public class AuthController : ControllerBase
     {
         /// <summary>
-        /// The _auth service.
+        /// The service.
         /// </summary>
         private readonly IAuthenticateService authService;
 
@@ -29,15 +29,16 @@
         /// </summary>
         private readonly ILogger<AuthController> logger;
 
+        /// <summary>
+        /// The context.
+        /// </summary>
         private readonly TmContext context;
-
-        #region Ctor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthController"/> class.
         /// </summary>
         /// <param name="authService">
-        /// The auth service.
+        /// The service.
         /// </param>
         /// <param name="logger">
         /// The logger.
@@ -55,13 +56,11 @@
             this.context = context;
         }
 
-        #endregion
-
         /// <summary>
-        /// Route : api/auth/login.
+        /// The login.
         /// </summary>
         /// <param name="model">
-        /// The auth model.
+        /// The model.
         /// </param>
         /// <returns>
         /// The <see cref="IActionResult"/>.
