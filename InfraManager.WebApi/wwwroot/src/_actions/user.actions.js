@@ -8,7 +8,7 @@ export const userActions = {
     logout,
     register,
     getAll,
-    delete: _delete
+    delete: _delete,
 };
 
 function login(username, password) {
@@ -61,13 +61,14 @@ function register(user) {
     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
 }
 
-function getAll() {
+function getAll(key, limit) {
     return dispatch => {
         dispatch(request());
 
-        userService.getAll()
+        userService.getAll(key, limit)
             .then(
                 users => dispatch(success(users)),
+                history.push('/home'),
                 error => dispatch(failure(error))
             );
     };
@@ -76,6 +77,7 @@ function getAll() {
     function success(users) { return { type: userConstants.GETALL_SUCCESS, users } }
     function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
+
 
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {

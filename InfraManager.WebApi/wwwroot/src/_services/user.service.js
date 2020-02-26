@@ -1,11 +1,9 @@
 import { authHeader } from '../_helpers';
-
 export const userService = {
     login,
     logout,
     register,
     getAll,
-    getById,
     update,
     delete: _delete
 };
@@ -29,11 +27,10 @@ function login(username, password) {
 
 
 function logout() {
-    // remove user from local storage to log user out
     localStorage.removeItem('user');
 }
 
-function getAll() {
+function getAll(key, limit) {
     let user = JSON.parse(localStorage.getItem('user'));
     const requestOptions = {
         method: 'GET',
@@ -43,16 +40,8 @@ function getAll() {
             'Authorization':'Bearer ' + user.token
      }
     };
-    return fetch(`http://localhost:5000/api/Proposal`, requestOptions).then(handleResponse);
-}
 
-function getById(id) {
-    const requestOptions = {
-        method: 'GET',
-        headers: authHeader()
-    };
-
-    return fetch(`/users/${id}`, requestOptions).then(handleResponse);
+    return fetch(`http://localhost:5000/api/Call/GetList?limit=${limit}&search=${key}`, requestOptions).then(handleResponse);
 }
 
 function register(user) {
@@ -86,8 +75,8 @@ function _delete(id) {
 }
 
 function handleResponse(response) {
-    return response.text().then(text => {
-        const data = text && JSON.parse(text);
+    return  response.json().then(res => {
+        const data = res
         if (!response.ok) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api

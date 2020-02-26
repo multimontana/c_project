@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './loginPage.css'
 import { userActions } from '../_actions';
@@ -16,17 +15,14 @@ class LoginPage extends React.Component {
             password: '',
             submitted: false
         };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(e) {
+    handleChange = (e) => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
     }
 
-    handleSubmit(e) {
+    handleSubmit = (e) => {
         e.preventDefault();
 
         this.setState({ submitted: true });
@@ -37,7 +33,6 @@ class LoginPage extends React.Component {
     }
 
     render() {        
-        const { loggingIn } = this.props;
         const { username, password, submitted } = this.state;
         
         return (
